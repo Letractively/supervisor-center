@@ -3,11 +3,11 @@
 
 # --- !Ups
 
-create table groupes (
+create table groups (
   id                        bigint auto_increment not null,
   name                      varchar(255) not null,
   description               varchar(255) not null,
-  constraint pk_groupes primary key (id))
+  constraint pk_groups primary key (id))
 ;
 
 create table supervisors (
@@ -32,25 +32,25 @@ create table users (
 ;
 
 
-create table groupes_supervisors (
-  groupes_id                     bigint not null,
+create table groups_supervisors (
+  groups_id                      bigint not null,
   supervisors_id                 bigint not null,
-  constraint pk_groupes_supervisors primary key (groupes_id, supervisors_id))
+  constraint pk_groups_supervisors primary key (groups_id, supervisors_id))
 ;
 
 
 
-alter table groupes_supervisors add constraint fk_groupes_supervisors_groupe_01 foreign key (groupes_id) references groupes (id) on delete restrict on update restrict;
+alter table groups_supervisors add constraint fk_groups_supervisors_groups_01 foreign key (groups_id) references groups (id) on delete restrict on update restrict;
 
-alter table groupes_supervisors add constraint fk_groupes_supervisors_superv_02 foreign key (supervisors_id) references supervisors (id) on delete restrict on update restrict;
+alter table groups_supervisors add constraint fk_groups_supervisors_supervi_02 foreign key (supervisors_id) references supervisors (id) on delete restrict on update restrict;
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists groupes;
+drop table if exists groups;
 
-drop table if exists groupes_supervisors;
+drop table if exists groups_supervisors;
 
 drop table if exists supervisors;
 

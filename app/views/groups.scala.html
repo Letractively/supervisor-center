@@ -1,4 +1,4 @@
-@(currentPage: Page[User], currentSortBy: String, currentOrder: String)
+@(currentPage: Page[Group], currentSortBy: String, currentOrder: String)
 
 @****************************************
 * Helper generating navigation links    *
@@ -21,7 +21,7 @@
     }
     
     // Generate the link
-    routes.Admin.users(newPage, sortBy, order)
+    routes.Admin.groups(newPage, sortBy, order)
 }
 
 @**********************************
@@ -33,18 +33,20 @@
     </th>
 }
 
-@main("admin")("users"){
+@main("admin")("groups"){
         	<div class="span10">
 				<div class="btn-toolbar">
 	        	    <div class="btn-group">
-					    <a class="btn btn-info" href="@routes.Admin.users()" rel="tooltip" title="@Messages("admin.users.links.list")"><i class="icon-list-alt"></i></a>
+					    <a class="btn btn-info" href="@routes.Admin.groups()" rel="tooltip" title="@Messages("admin.groups.links.list")"><i class="icon-list-alt"></i></a>
 				    </div>
+				    @if(session.get("level") == "WRITE" ||session.get("level") == "ADMIN"  ) {
 	        	    <div class="btn-group">
-					    <a class="btn" href="@routes.Admin.newuser()" rel="tooltip" title="@Messages("admin.users.links.new")"><i class="icon-file"></i></a>
-				    </div>
+					    <a class="btn" href="@routes.Admin.newgroup()" rel="tooltip" title="@Messages("admin.groups.links.new")"><i class="icon-file"></i></a>
+				    </div>                   
+				    }
 				</div>
-				<h3>@Messages("admin.users.header")</h3>
-				<a class="btn pull-right" href="@routes.Admin.users(-2, "name", "asc")" rel="tooltip" title="@Messages("common.deleteprefs")"><i class="icon-trash"></i></a>
+				<h3>@Messages("admin.groups.header")</h3>
+				<a class="btn pull-right" href="@routes.Admin.groups(-2, "name", "asc")" rel="tooltip" title="@Messages("common.deleteprefs")"><i class="icon-trash"></i></a>
 				<br/>
 				<br/>
 			    @if(currentPage.getTotalRowCount == 0) {
@@ -57,20 +59,19 @@
 				<table class="table table-striped table-bordered table-condensed">  
 			        <thead>  
 			          <tr>
-			          	@header("login",Messages("common.login"))
-			          	@header("name",Messages("common.name"))
-			          	@header("role",Messages("common.role"))
+			          	@header("name","Nom")
+			          	@header("description","Description")
 			          	<th colspan="2">Action</th>
 			          </tr>  
 			        </thead>  
 			        <tbody>  
-					@for(user <- currentPage.getList) {
+					@for(group <- currentPage.getList) {
 			          <tr>  
-			            <td>@user.login</td>  
-			            <td>@user.name</td>  
-			            <td>@user.role</td>   
-			            <td>@if(session.get("level") == "WRITE" ||session.get("level") == "ADMIN"  ) {<a href="@routes.Admin.edituser(user.id)"><i class="icon-edit"></i></a>}</td>
-			            <td>@if(session.get("level") == "WRITE" ||session.get("level") == "ADMIN"  ) {<a href="@routes.Admin.deleteuser(user.id)"><i class="icon-remove"></i></a>}</td>
+			          
+			            <td>@group.name</td>  
+			            <td>@group.description</td>
+			            <td>@if(session.get("level") == "WRITE" ||session.get("level") == "ADMIN"  ) {<a href="@routes.Admin.editgroup(group.id)"><i class="icon-edit"></i></a>}</td>
+			            <td>@if(session.get("level") == "WRITE" ||session.get("level") == "ADMIN"  ) {<a href="@routes.Admin.deletegroup(group.id)"><i class="icon-remove"></i></a>}</td>
 
 			          </tr>  
 					} 

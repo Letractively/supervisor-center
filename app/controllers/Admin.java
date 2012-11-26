@@ -20,6 +20,7 @@ import play.api.Configuration;
 import views.html.*;
 
 import static akka.pattern.Patterns.ask;
+import play.i18n.Messages;
 import play.libs.Akka;
 import static play.mvc.Results.async;
 import static play.libs.Akka.future;
@@ -43,9 +44,9 @@ public class Admin extends Controller {
 
 	public static play.mvc.Result index() {
 		if (Secured.hasReadAccess()) {
-			return ok(indexadmin.render());
+			return redirect("/admin/groups");
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -101,7 +102,7 @@ public class Admin extends Controller {
 
 			return ok(users.render(usersPage, sortBy, order));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -119,7 +120,7 @@ public class Admin extends Controller {
 			}
 			return redirect(routes.Admin.users(0, "name", "asc"));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -128,7 +129,7 @@ public class Admin extends Controller {
 			Form<User> userForm = form(User.class);
 			return ok(newUserForm.render(userForm));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -142,7 +143,7 @@ public class Admin extends Controller {
 			}
 			return redirect(routes.Admin.users(0, "name", "asc"));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -152,7 +153,7 @@ public class Admin extends Controller {
 					User.find.where().idEq(id).findUnique());
 			return ok(editUserForm.render(id, userForm));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -172,7 +173,7 @@ public class Admin extends Controller {
 				return index();
 			}
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 
@@ -190,7 +191,136 @@ public class Admin extends Controller {
 			}
 			return redirect(routes.Admin.users(0, "name", "asc"));
 		} else {
-			return unauthorized(errorPage.render("Attention!","Accès non authorisé"));
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static play.mvc.Result groups(int page, String sortBy, String order) {
+		if (Secured.hasReadAccess()) {
+			if(page == -1) {
+				String sessionval = session("groups.page");
+				if (sessionval != null) {
+					page = Integer.parseInt(sessionval);
+				} else {
+					page = 0;
+				}
+			} else if (page == -2) {
+				session().remove("groups.page");
+				page = 0;
+			} else {
+				session("groups.page",String.valueOf(page));
+			} 
+
+			if(sortBy == "") {
+				String sessionval = session("groups.sortBy");
+				if (sessionval != null) {
+					sortBy = sessionval;
+				} else {
+					sortBy = "name";
+				}
+			} else if (sortBy == ".") {
+				// efface la session pour mettre vide
+				session().remove("groups.sortBy");
+				sortBy = "";
+			} else {
+				session("groups.sortBy",sortBy);
+			} 
+
+			if(order == "") {
+				String sessionval = session("groups.order");
+				if (sessionval != null) {
+					order = sessionval;
+				}
+			} else if (order == ".") {
+				// efface la session pour mettre vide
+				session().remove("groups.order");
+				order = "";
+			} else {
+				session("groups.order",order);
+			} 
+			Page<Group> groupsPage = Group.page(page, 25, sortBy, order);
+			if (page >= groupsPage.getTotalPageCount()) {
+				page = 0;
+				session().remove("groups.page");
+				groupsPage = Group.page(0, 25, sortBy, order);
+			}
+
+			return ok(groups.render(groupsPage, sortBy, order));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result editgroup(Long id) {
+		if (Secured.hasWriteAccess()) {
+			Form<Group> groupeForm = form(Group.class).fill(
+					Group.find.where().idEq(id).findUnique());
+			return ok(editGroupeForm.render(id, groupeForm));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+			}
+	}
+
+	public static Result updategroup(Long id) {
+		if (Secured.hasWriteAccess()) {
+			Form<Group> groupeForm = form(Group.class).bindFromRequest();
+			if (groupeForm.hasErrors()) {
+				return badRequest(editGroupeForm.render(id, groupeForm));
+			}
+			try {
+				groupeForm.get().update(id);
+				flash("success", "Le groupe " + groupeForm.get().name
+						+ " a été modifié");
+			} catch (Exception e) {
+				flash("error", "Le groupe " + groupeForm.get().name
+						+ " n'a pas été modifié");
+			}
+			return redirect(routes.Admin.groups(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result savegroup() {
+		if (Secured.hasWriteAccess()) {
+			Form<Group> groupeForm = form(Group.class).bindFromRequest();
+			if (groupeForm.hasErrors()) {
+				return badRequest(newGroupeForm.render(groupeForm));
+			}
+			try {
+				groupeForm.get().save();
+				flash("success", "Group " + groupeForm.get().name
+						+ " a été créé");
+			} catch (Exception e) {
+				flash("error", "Group " + groupeForm.get().name
+						+ " non créé");
+			}
+			return redirect(routes.Admin.groups(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result newgroup() {
+		if (Secured.hasWriteAccess()) {
+			Form<Group> groupeForm = form(Group.class);
+			return ok(newGroupeForm.render(groupeForm));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result deletegroup(Long id) {
+		if (Secured.hasWriteAccess()) {
+			try {
+				Group.find.ref(id).delete();
+				flash("success", "Le groupe a été supprimée");
+			} catch (Exception e) {
+				flash("error", "Le groupe n'a pas été supprimée");
+			}
+			return redirect(routes.Admin.groups(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
 		}
 	}
 

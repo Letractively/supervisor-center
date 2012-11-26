@@ -9,15 +9,15 @@ GET     /                           controllers.Application.index()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Authentication
-GET     /login                          controllers.Application.login()
-POST    /login                          controllers.Application.authenticate()
-GET     /logout                         controllers.Application.logout()
+GET     /login                      controllers.Application.login()
+POST    /login                      controllers.Application.authenticate()
+GET     /logout                     controllers.Application.logout()
 
 ## Control
-GET     /control                         controllers.Control.index()
+GET     /control                    controllers.Control.index()
 
 ## Admin
-GET     /admin                         controllers.Admin.index()
+GET     /admin                      controllers.Admin.index()
 
 GET     /admin/users     			controllers.Admin.users(p:Int ?= -1, s ?= "", o ?= "asc")
 GET     /admin/users/new     		controllers.Admin.newuser()
@@ -26,3 +26,10 @@ GET     /admin/users/:id		    controllers.Admin.edituser(id:Long)
 GET     /admin/users/my/:login		controllers.Admin.editmyuser(login:String)
 POST    /admin/users/:id 		    controllers.Admin.updateuser(id:Long)
 GET     /admin/users/:id/delete   	controllers.Admin.deleteuser(id:Long)
+
+GET     /admin/groups     			controllers.Admin.groups(p:Int ?= -1, s ?= "", o ?= "asc")
+GET     /admin/groups/new     		controllers.Admin.newgroup()
+POST    /admin/groups     		    controllers.Admin.savegroup()
+GET     /admin/groups/:id		    controllers.Admin.editgroup(id:Long)
+POST    /admin/groups/:id 		    controllers.Admin.updategroup(id:Long)
+GET     /admin/groups/:id/delete    controllers.Admin.deletegroup(id:Long)
