@@ -19,6 +19,8 @@ login.invalid=Invalid user or password
 login.success=Login successful
 logout.success=You've been logged out
 
+authentification.unauthorizedaccess=Unauthorized access
+
 admin.users=Users
 admin.users.header=Users list
 admin.users.login=Login
@@ -33,9 +35,21 @@ admin.users.links.new=Create new user
 admin.users.edit.header=Modify user
 admin.users.edit.save=Save this user
 
+admin.groups=Groups
+admin.groups.header=Groups list
+admin.groups.name=Name
+admin.groups.add.header=Add group
+admin.groups.add.confirm=Add this group
+admin.groups.links.list=List groups
+admin.groups.links.new=Create new group
+
+admin.groups.edit.header=Modify group
+admin.groups.edit.save=Save this group
+
 common.cancel=Cancel
 common.deleteprefs=Delete preferences
 common.name=Name
+common.description=Description
 common.login=Login
 common.role=Role
 common.password=Password
@@ -48,3 +62,4 @@ common.admin=Admin
 common.write=Write
 common.read=Read
 common.or=or
+common.nothingtoshow=Nothing to show

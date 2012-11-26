@@ -59,7 +59,7 @@ public class Supervisor extends Model {
     public String comment;
     
     @ManyToMany(mappedBy = "supervisors")
-    public List<Groupe> groupes;
+    public List<Group> groups;
 
     
     // -- Queries
@@ -76,7 +76,7 @@ public class Supervisor extends Model {
 	public static Page<Supervisor> page(int page, int pageSize, String sortBy, String order) {
 		Page<Supervisor> currentpage = null;
 		com.avaje.ebean.Query<Supervisor> query = Ebean.createQuery(Supervisor.class);
-		query.fetch("groupes");
+		query.fetch("groups");
 		query.orderBy(sortBy + " " + order );
 
 		currentpage = query.findPagingList(pageSize).getPage(page);
@@ -87,7 +87,7 @@ public class Supervisor extends Model {
 	public static List<Supervisor> findOrdered(String sortBy, String order) {
 		List<Supervisor> supervisors = null;
 		com.avaje.ebean.Query<Supervisor> query = Ebean.createQuery(Supervisor.class);
-		query.fetch("groupes");
+		query.fetch("groups");
 		query.orderBy(sortBy + " " + order );
 
 		supervisors = query.findList();

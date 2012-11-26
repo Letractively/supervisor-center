@@ -1,0 +1,32 @@
+@(id: Long, groupForm: Form[Group])
+
+@import helper._
+@import html5.tags.html._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("admin")("groups"){
+        	<div class="span10">
+				<div class="btn-toolbar">
+	        	    <div class="btn-group">
+					    <a class="btn btn-info" href="@routes.Admin.groups()" rel="tooltip" title="@Messages("admin.groups.links.list")"><i class="icon-list-alt"></i></a>
+				    </div>
+				</div>
+			    
+			    @form(routes.Admin.updategroup(id), 'class -> "form-horizontal") {
+			        <legend>@Messages("admin.groups.edit.header")</legend>
+			        
+		            @text(groupForm("name"), '_label -> Messages("common.name"), '_showConstraints -> false)
+		            @textarea(groupForm("description"), '_label -> Messages("common.description"), '_showConstraints -> false)
+			        
+		            <div class="control-group">
+						<div class="controls">
+				            <input type="submit" value="@Messages("admin.groups.edit.save")" class="btn btn-success"> ou 
+				            <a href="@routes.Admin.groups()">@Messages("common.cancel")</a> 
+				        </div>
+				    </div>
+			        
+			    }
+			</div>
+    
+}
