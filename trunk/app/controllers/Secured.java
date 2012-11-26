@@ -34,11 +34,11 @@ public class Secured extends Security.Authenticator {
     
     public static boolean hasWriteAccess() {
     	String appLevel = User.findByLogin(Context.current().request().username()).role;
-    	if (appLevel.compareTo("Consultation") == 0) {
+    	if (appLevel.compareTo("READ") == 0) {
     		return false;
-    	} else if (appLevel.compareTo("Modification") == 0) {
+    	} else if (appLevel.compareTo("WRITE") == 0) {
     		return true;
-    	} else if (appLevel.compareTo("Administration") == 0) {
+    	} else if (appLevel.compareTo("ADMIN") == 0) {
     		return true;
     	} else {
     		return false;
@@ -47,11 +47,11 @@ public class Secured extends Security.Authenticator {
     
     public static boolean hasAdminAccess() {
     	String appLevel = User.findByLogin(Context.current().request().username()).role;
-    	if (appLevel.compareTo("Consultation") == 0) {
+    	if (appLevel.compareTo("READ") == 0) {
     		return false;
-    	} else if (appLevel.compareTo("Modification") == 0) {
+    	} else if (appLevel.compareTo("WRITE") == 0) {
     		return false;
-    	} else if (appLevel.compareTo("Administration") == 0) {
+    	} else if (appLevel.compareTo("ADMIN") == 0) {
     		return true;
     	} else {
     		return false;

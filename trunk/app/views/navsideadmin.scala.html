@@ -1,0 +1,12 @@
+@(currentside: String)
+
+        <div class="span2">
+          @if((session.get("level") == "Administration") || (session.get("level") == "ADMIN")) {
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              	<li class="nav-header">@Messages("nav.side.admin.header")</li>
+				<li @if(currentside == "users") { class="active"} else { class="inactive" } ><a href="@routes.Admin.users()">@Messages("admin.users")</a></li>
+			</ul>
+          </div><!--/.well -->
+          }
+        </div><!--/span-->
