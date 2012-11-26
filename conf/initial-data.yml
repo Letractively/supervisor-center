@@ -1,0 +1,10 @@
+
+# Users
+
+users:
+
+    - !!models.User
+        login:      admin
+        name:       Admin User
+        password:   admin
+        role:       ADMIN

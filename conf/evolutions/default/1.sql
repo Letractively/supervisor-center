@@ -24,8 +24,7 @@ create table supervisors (
 
 create table users (
   id_user                   bigint auto_increment not null,
-  nom                       varchar(255) not null,
-  prenom                    varchar(255) not null,
+  name                      varchar(255) not null,
   login                     varchar(255),
   password                  varchar(255),
   role                      varchar(255) not null,

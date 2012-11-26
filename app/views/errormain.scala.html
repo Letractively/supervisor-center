@@ -4,7 +4,7 @@
 <html lang="fr">
 	<head>
 	    <meta charset="utf-8">
-	    <title>@Messages("home.title")</title>
+	    <title>WebAccis</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -25,14 +25,11 @@
 	    <link href="@routes.Assets.at("stylesheets/transform.css")" rel="stylesheet" >
 	    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" >
 	    <link href="@routes.Assets.at("stylesheets/timepicker.css")" rel="stylesheet" >
-	    <link href="@routes.Assets.at("stylesheets/datepicker.css")" rel="stylesheet" >
 
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 		  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link rel="shortcut icon" type="image/x-icon" href="@routes.Assets.at("images/favicon.ico")">
-		<link rel="icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 		
 	</head>
 	<body>
@@ -40,42 +37,8 @@
 		@navbar(currentnav)
 	
 	    <div class="container-fluid">
-	        
-	        @if(session.get("version")!=play.api.Play.current.configuration.getString("app.version").get&&session.get("version")!=null){ 
-	        	<div class="alert alert-warning">
-				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Attention!</h4>
-	        		Une nouvelle version de l'application a été déployée, merci de vous <a href="@routes.Application.logout()"><i class="icon-share-alt"></i> reconnecter</a><br/>
-				</div>
-	        }
-	            
-		    @if(flash.containsKey("success")) {
-		    	<div class="alert alert-success">
-				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Succès!</h4>
-					@flash.get("success")
-				</div>
-		    } 
-	            
-		    @if(flash.containsKey("warning")) {
-		    	<div class="alert alert-error">
-				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Attention!</h4>
-					@flash.get("warning")
-				</div>
-		    } 
-	            
-		    @if(flash.containsKey("error")) {
-		    	<div class="alert alert-error">
-				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Erreur!</h4>
-					@flash.get("error")
-				</div>
-		    } 
 		    
 	      <div class="row-fluid">
-
-		    @navside(currentnav)(currentside)
 
 	    	@content
 		  </div>
@@ -83,7 +46,7 @@
 	      <hr>
 	
 	      <footer>
-	        <p>@Messages("home.title") <strong>@play.api.Play.current.configuration.getString("app.version")</strong> released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a></p>
+	        <p>&copy; ACIS asbl. 2012</p>
 	      </footer>
 		</div>
 
@@ -98,8 +61,6 @@
 	    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-modal.js")"></script>
 	    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-collapse.js")"></script>
 	    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-timepicker.js")"></script>
-	    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")"></script>
-	    <script type="text/javascript" src="@routes.Assets.at("javascripts/locales/bootstrap-datepicker.fr.js")"></script>
 	    <script type="text/javascript" src="@routes.Assets.at("javascripts/application.js")"></script>
 	    
 	    <script type="text/javascript">
@@ -118,20 +79,6 @@
 	                template: 'modal',
 	                showSeconds: true,
 	                showMeridian: false
-	            });
-	            $('.timepicker-00').timepicker({
-	                minuteStep: 1,
-	                template: 'modal',
-	                showSeconds: true,
-	                showMeridian: false,
-	                defaultTime: '00:00:00'
-	            });
-	            $('.timepicker-23').timepicker({
-	                minuteStep: 1,
-	                template: 'modal',
-	                showSeconds: true,
-	                showMeridian: false,
-	                defaultTime: '23:59:59'
 	            });
 	
 	            $('.timepicker-2').timepicker({
@@ -154,13 +101,6 @@
 	                template: false,
 	                showInputs: false,
 	                minuteStep: 5
-	            });
-	            
-	            $('.datepicker').datepicker({
-	            	format: 'yyyy-mm-dd',
-	            	weekStart: 1,
-	            	language: 'fr',
-	            	todayBtn: true
 	            });
 	        });
 	    </script>
