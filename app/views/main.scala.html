@@ -44,15 +44,15 @@
 	        @if(session.get("version")!=play.api.Play.current.configuration.getString("app.version").get&&session.get("version")!=null){ 
 	        	<div class="alert alert-warning">
 				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Attention!</h4>
-	        		Une nouvelle version de l'application a été déployée, merci de vous <a href="@routes.Application.logout()"><i class="icon-share-alt"></i> reconnecter</a><br/>
+	  			    <h4 class="alert-heading">@Messages("notice.warning")!</h4>
+	        		@Messages("version.newversiondeployed") <a href="@routes.Application.logout()"><i class="icon-share-alt"></i> @Messages("version.logagain")</a><br/>
 				</div>
 	        }
 	            
 		    @if(flash.containsKey("success")) {
 		    	<div class="alert alert-success">
 				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Succès!</h4>
+	  			    <h4 class="alert-heading">@Messages("notice.success")!</h4>
 					@flash.get("success")
 				</div>
 		    } 
@@ -60,7 +60,7 @@
 		    @if(flash.containsKey("warning")) {
 		    	<div class="alert alert-error">
 				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Attention!</h4>
+	  			    <h4 class="alert-heading">@Messages("notice.warning")!</h4>
 					@flash.get("warning")
 				</div>
 		    } 
@@ -68,7 +68,7 @@
 		    @if(flash.containsKey("error")) {
 		    	<div class="alert alert-error">
 				  	<button class="close" data-dismiss="alert">×</button>
-	  			    <h4 class="alert-heading">Erreur!</h4>
+	  			    <h4 class="alert-heading">@Messages("notice.error")!</h4>
 					@flash.get("error")
 				</div>
 		    } 

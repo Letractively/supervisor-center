@@ -18,3 +18,11 @@ GET     /control                         controllers.Control.index()
 
 ## Admin
 GET     /admin                         controllers.Admin.index()
+
+GET     /admin/users     			controllers.Admin.users(p:Int ?= -1, s ?= "", o ?= "asc")
+GET     /admin/users/new     		controllers.Admin.newuser()
+POST    /admin/users     		    controllers.Admin.saveuser()
+GET     /admin/users/:id		    controllers.Admin.edituser(id:Long)
+GET     /admin/users/my/:login		controllers.Admin.editmyuser(login:String)
+POST    /admin/users/:id 		    controllers.Admin.updateuser(id:Long)
+GET     /admin/users/:id/delete   	controllers.Admin.deleteuser(id:Long)

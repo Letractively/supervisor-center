@@ -1,3 +1,50 @@
 home.title=SupervisorCenter
-nav.menus.control=Control
-nav.menus.admin=Admin
+
+nav.bar.menus.control=Control
+nav.bar.menus.admin=Admin
+nav.bar.login.login=Login
+nav.bar.login.myuser=My user
+nav.bar.login.disconnect=Disconnect
+nav.side.admin.header=Administration
+
+notice.success=Success
+notice.error=Error
+notice.warning=Warning
+notice.info=Info
+
+version.newversiondeployed=A new version has been deployed, please 
+version.logagain=log again
+
+login.invalid=Invalid user or password
+login.success=Login successful
+logout.success=You've been logged out
+
+admin.users=Users
+admin.users.header=Users list
+admin.users.login=Login
+admin.users.name=Name
+admin.users.role=Role
+admin.users.password=Password
+admin.users.add.header=Add user
+admin.users.add.confirm=Add this user
+admin.users.links.list=List users
+admin.users.links.new=Create new user
+
+admin.users.edit.header=Modify user
+admin.users.edit.save=Save this user
+
+common.cancel=Cancel
+common.deleteprefs=Delete preferences
+common.name=Name
+common.login=Login
+common.role=Role
+common.password=Password
+common.action=Action
+common.previous=Previous
+common.next=Next
+common.from=from
+common.to=to
+common.admin=Admin
+common.write=Write
+common.read=Read
+common.or=or

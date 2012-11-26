@@ -33,7 +33,6 @@ public class User extends Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@Column(name = "id_user")
 	public Long id;
 
 	@Required
@@ -92,11 +91,7 @@ public class User extends Model {
 			String order) {
 		Page<User> currentpage = null;
 		com.avaje.ebean.Query<User> query = Ebean.createQuery(User.class);
-		if (sortBy.compareTo("nom") == 0) {
-			query.orderBy(sortBy + " " + order + ",prenom " + order);
-		} else {
-			query.orderBy(sortBy + " " + order + ",prenom desc");
-		}
+		query.orderBy(sortBy + " " + order );
 
 		currentpage = query.findPagingList(pageSize).getPage(page);
 

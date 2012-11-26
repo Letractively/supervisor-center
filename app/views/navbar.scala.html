@@ -13,7 +13,7 @@
 	          <div class="btn-group pull-right">
 	            @if( session.get("login") == null ) {
 	            <a class="btn" href="@routes.Application.login()">
-	              <i class="icon-user"></i> Login
+	              <i class="icon-user"></i> @Messages("nav.bar.login.login")
 	            </a>
 	            } else {
 	            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -21,15 +21,17 @@
 	              <span class="caret"></span>
 	            </a>
 	            <ul class="dropdown-menu">
-	              	<li><a href="@routes.Application.logout()">Se déconnecter</a></li>
+		      		<li><a href="@routes.Admin.editmyuser(session.get("login"))">@Messages("nav.bar.login.myuser")</a></li>
+	              	<li class="divider"></li>
+	              	<li><a href="@routes.Application.logout()">@Messages("nav.bar.login.disconnect")</a></li>
 	            </ul> 
 	            }
 	          </div>
 	          }
 	          <div class="nav-collapse">
 	            <ul class="nav">
-					<li @if(currentnav == "control") { class="active"} else { class="inactive" } ><a href="@routes.Control.index()">@Messages("nav.menus.control")</a></li>
-					<li @if(currentnav == "admin") { class="active"} else { class="inactive" } ><a href="@routes.Admin.index()">@Messages("nav.menus.admin")</a></li>
+					<li @if(currentnav == "control") { class="active"} else { class="inactive" } ><a href="@routes.Control.index()">@Messages("nav.bar.menus.control")</a></li>
+					<li @if(currentnav == "admin") { class="active"} else { class="inactive" } ><a href="@routes.Admin.index()">@Messages("nav.bar.menus.admin")</a></li>
 	            </ul>
 	          </div><!--/.nav-collapse -->
 	        </div>

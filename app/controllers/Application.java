@@ -6,6 +6,7 @@ import play.mvc.*;
 import play.data.*;
 import play.mvc.Controller;
 import play.api.Configuration;
+import play.api.i18n.Messages;
 
 import views.html.*;
 
@@ -25,7 +26,7 @@ public class Application extends Controller {
 		public String validate() {
 			
 			if (User.authenticate(login, password) == null) {
-				return "Invalid user or password";
+				return play.i18n.Messages.get("login.invalid");
 			}
 			return null;
 		}
@@ -45,7 +46,7 @@ public class Application extends Controller {
 	public static Result authenticate() {
 		Form<Login> loginForm = form(Login.class).bindFromRequest();
 		if (loginForm.hasErrors()) {
-			flash("error", "Mot de passe ou Utilisateur incorect!");
+			flash("error", play.i18n.Messages.get("login.invalid"));
 			return badRequest(login.render(loginForm));
 		} else {
 			User appUser = User.findByLogin(loginForm.get().login);
@@ -53,7 +54,7 @@ public class Application extends Controller {
 			session("login", loginForm.get().login);
 			session("level", appLevel);
 			session("version",Play.application().configuration().getString("app.version"));
-			flash("success", "Login réussi");
+			flash("success", play.i18n.Messages.get("login.success"));
 			return redirect(routes.Application.index());
 		}
 	}
@@ -63,7 +64,7 @@ public class Application extends Controller {
 	 */
 	public static Result logout() {
 		session().clear();
-		flash("success", "Loggout réussi");
+		flash("success", play.i18n.Messages.get("logout.success"));
 		return redirect(routes.Application.login());
 	}
   

@@ -23,12 +23,12 @@ create table supervisors (
 ;
 
 create table users (
-  id_user                   bigint auto_increment not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255) not null,
   login                     varchar(255),
   password                  varchar(255),
   role                      varchar(255) not null,
-  constraint pk_users primary key (id_user))
+  constraint pk_users primary key (id))
 ;
 
 
