@@ -1,0 +1,33 @@
+.supprime {
+	text-decoration:line-through;
+	color:red;
+	background-color: #EEEEEE;
+	font-weight: bold;
+}
+.modifie {
+	color:red;
+	background-color: #EEEEEE;
+	font-weight: bold;
+}
+.original {
+	color:gray;
+}
+.nouveau {
+	color:green;
+	background-color: #EEEEEE;
+	font-weight: bold;
+}
+.reactive {
+	color:green;
+	background-color: #EEEEEE;
+	font-weight: bold;
+}
+.interne {
+	color:gray;
+}
+.enfants {
+	color:gray;
+}
+.rien {
+	color:gray;
+}

@@ -1,0 +1,19 @@
+@(pdate: Date)
+
+@dateshow(dateinsert: Date) = @{
+  val interval = (new java.util.Date()).getTime() - dateinsert.getTime()
+  
+  if(interval >= (24*3600*1000)) {
+    "le "+dateinsert.format("dd/MM/yyyy à h'h'mm")
+  }
+  else if(interval >= (3600*1000)){
+    "il y a "+(interval/1000/3600)+" heure"
+  }
+  else if(interval >= (60*1000)){
+    "il y a "+(interval/1000/60)+" minutes"
+  } else {
+    "il y a "+(interval/1000)+" secondes"
+  }
+}
+
+@dateshow(pdate)

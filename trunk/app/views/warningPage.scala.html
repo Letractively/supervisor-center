@@ -1,0 +1,12 @@
+@**
+ * Default page for 500 Internal Server Error responses, in production mode.
+ *@
+@(title: String,message: String)
+
+@errormain("error")("error"){
+	    	<div class="alert alert-block">
+			  	<button class="close" data-dismiss="alert">×</button>
+			    <h4 class="alert-heading">@title</h4>
+				@message
+			</div>
+}
