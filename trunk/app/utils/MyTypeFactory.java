@@ -1,4 +1,4 @@
-package be.bigjimnetwork.testxmlrpc;
+package utils;
 
 import org.apache.xmlrpc.common.TypeFactoryImpl;
 import org.apache.xmlrpc.common.XmlRpcController;

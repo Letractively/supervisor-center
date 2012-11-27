@@ -1,0 +1,40 @@
+@(processl: List[utils.SupervisorProcess])
+
+@import utils._
+
+@main("control")(""){
+        	<div class="span12">
+				<h3>@Messages("control.processlist.header")</h3>
+				@if(processl.size == 0) {
+			        
+			        <div class="well">
+			            <em>@Messages("common.nothingtoshow")</em>
+			        </div>
+			        
+			    } else {
+				<table class="table table-striped table-bordered table-condensed">  
+			        <thead>  
+			          <tr>
+			          	<th>State</th>
+			          	<th>Description</th>
+			          	<th>Name</th>
+			          	<th colspan="2">Action</th>
+			          </tr>  
+			        </thead>  
+			        <tbody>  
+					@for(process <- processl) {
+			          <tr>  
+			            <td><span class="label @if(process.getState == "RUNNING" ) {label-success} @if(process.getState == "FATAL" ) {label-important} @if(process.getState == "RESTARTING" ) {label-warning} @if(process.getState == "RUNNING" ) {label-warning} @if(process.getState == "STOPPED" ) {label-inverse}">@process.getState</span></td>  
+			            <td>pid @process.getProcessInfo.getPid, @if(process.getState == "RUNNING") {@Messages("common.started") @elapsedtime(process.getStartDate)}</td>  
+			            <td>@process.getName</td>
+			            <td></td>
+			            <td></td>
+			          </tr>  
+					} 
+			        </tbody>  
+		      	</table>
+		      	
+		      	
+		      	}
+			</div>
+}

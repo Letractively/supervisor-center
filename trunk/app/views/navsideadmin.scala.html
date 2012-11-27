@@ -7,6 +7,7 @@
               	<li class="nav-header">@Messages("nav.side.admin.header")</li>
 				<li @if(currentside == "users") { class="active"} else { class="inactive" } ><a href="@routes.Admin.users()">@Messages("admin.users")</a></li>
 				<li @if(currentside == "groups") { class="active"} else { class="inactive" } ><a href="@routes.Admin.groups()">@Messages("admin.groups")</a></li>
+				<li @if(currentside == "supervisors") { class="active"} else { class="inactive" } ><a href="@routes.Admin.supervisors()">@Messages("admin.supervisors")</a></li>
 			</ul>
           </div><!--/.well -->
           }

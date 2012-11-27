@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.bigjimnetwork.testxmlrpc;
+package utils;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author bigjim
  */
-class ProcessInfo {
+public class ProcessInfo {
     String name;
     String group;
     int start;
@@ -27,9 +27,9 @@ class ProcessInfo {
     public ProcessInfo(Map processInfo) {
         this.name = (String) processInfo.get("name");
         this.group = (String) processInfo.get("group");
-        this.start = (Integer) processInfo.get("start");
-        this.stop = (Integer) processInfo.get("stop");
-        this.now = (Integer) processInfo.get("now");
+        this.start = (int) processInfo.get("start");
+        this.stop = (int) processInfo.get("stop");
+        this.now = (int) processInfo.get("now");
         this.state = (Integer) processInfo.get("state");
         this.statename = (String) processInfo.get("statename");
         this.spawnerr = (String) processInfo.get("spawnerr");

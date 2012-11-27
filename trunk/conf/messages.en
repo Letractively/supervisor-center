@@ -21,6 +21,12 @@ logout.success=You've been logged out
 
 authentification.unauthorizedaccess=Unauthorized access
 
+control.processlist=Processes
+control.processlist.header=Process List
+control.processlist.name=Name
+control.processlist.state=State
+control.processlist.description=Description
+
 admin.users=Users
 admin.users.header=Users list
 admin.users.login=Login
@@ -40,8 +46,23 @@ admin.groups.header=Groups list
 admin.groups.name=Name
 admin.groups.add.header=Add group
 admin.groups.add.confirm=Add this group
+admin.groups.edit.save=Save this group
+admin.groups.edit.header=Modify group
 admin.groups.links.list=List groups
 admin.groups.links.new=Create new group
+
+admin.groups.edit.header=Modify group
+admin.groups.edit.save=Save this group
+
+admin.supervisors=Supervisors
+admin.supervisors.header=Supervisors list
+admin.supervisors.name=Name
+admin.supervisors.add.header=Add supervisor
+admin.supervisors.add.confirm=Add this supervisor
+admin.supervisors.edit.save=Save this supervisor
+admin.supervisors.edit.header=Modify supervisor
+admin.supervisors.links.list=List supervisors
+admin.supervisors.links.new=Create new supervisor
 
 admin.groups.edit.header=Modify group
 admin.groups.edit.save=Save this group
@@ -49,6 +70,12 @@ admin.groups.edit.save=Save this group
 common.cancel=Cancel
 common.deleteprefs=Delete preferences
 common.name=Name
+common.comment=Comment
+common.host=Host
+common.port=Port
+common.group=Group
+common.place=Place
+common.authentification=Authentification
 common.description=Description
 common.login=Login
 common.role=Role
@@ -63,3 +90,10 @@ common.write=Write
 common.read=Read
 common.or=or
 common.nothingtoshow=Nothing to show
+common.started=Started
+common.since=since
+common.hours=hours
+common.hour=hour
+common.minutes=minutes
+common.minute=minute
+common.seconds=seconds

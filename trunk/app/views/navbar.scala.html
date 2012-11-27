@@ -30,7 +30,7 @@
 	          }
 	          <div class="nav-collapse">
 	            <ul class="nav">
-					<li @if(currentnav == "control") { class="active"} else { class="inactive" } ><a href="@routes.Control.index()">@Messages("nav.bar.menus.control")</a></li>
+					<li @if(currentnav == "control") { class="active"} else { class="inactive" } ><a href="@routes.Control.processlist()">@Messages("nav.bar.menus.control")</a></li>
 					<li @if(currentnav == "admin") { class="active"} else { class="inactive" } ><a href="@routes.Admin.index()">@Messages("nav.bar.menus.admin")</a></li>
 	            </ul>
 	          </div><!--/.nav-collapse -->

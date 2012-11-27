@@ -39,6 +39,8 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import utils.*;
+
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
 
@@ -324,4 +326,132 @@ public class Admin extends Controller {
 		}
 	}
 
+	public static play.mvc.Result supervisors(int page, String sortBy, String order) {
+		if (Secured.hasReadAccess()) {
+			if(page == -1) {
+				String sessionval = session("supervisors.page");
+				if (sessionval != null) {
+					page = Integer.parseInt(sessionval);
+				} else {
+					page = 0;
+				}
+			} else if (page == -2) {
+				session().remove("supervisors.page");
+				page = 0;
+			} else {
+				session("supervisors.page",String.valueOf(page));
+			} 
+
+			if(sortBy == "") {
+				String sessionval = session("supervisors.sortBy");
+				if (sessionval != null) {
+					sortBy = sessionval;
+				} else {
+					sortBy = "ip";
+				}
+			} else if (sortBy == ".") {
+				// efface la session pour mettre vide
+				session().remove("supervisors.sortBy");
+				sortBy = "";
+			} else {
+				session("supervisors.sortBy",sortBy);
+			} 
+
+			if(order == "") {
+				String sessionval = session("supervisors.order");
+				if (sessionval != null) {
+					order = sessionval;
+				}
+			} else if (order == ".") {
+				// efface la session pour mettre vide
+				session().remove("supervisors.order");
+				order = "";
+			} else {
+				session("supervisors.order",order);
+			} 
+			Page<Supervisor> supervisorsPage = Supervisor.page(page, 25, sortBy, order);
+			if (page >= supervisorsPage.getTotalPageCount()) {
+				page = 0;
+				session().remove("supervisors.page");
+				supervisorsPage = Supervisor.page(0, 25, sortBy, order);
+			}
+
+			return ok(supervisors.render(supervisorsPage, sortBy, order));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result editsupervisor(Long id) {
+		if (Secured.hasWriteAccess()) {
+			Form<Supervisor> supervisorForm = form(Supervisor.class).fill(
+					Supervisor.find.where().idEq(id).findUnique());
+			return ok(editSupervisorForm.render(id, supervisorForm));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+			}
+	}
+
+	public static Result updatesupervisor(Long id) {
+		if (Secured.hasWriteAccess()) {
+			Form<Supervisor> supervisorForm = form(Supervisor.class).bindFromRequest();
+			if (supervisorForm.hasErrors()) {
+				return badRequest(editSupervisorForm.render(id, supervisorForm));
+			}
+			try {
+				supervisorForm.get().update(id);
+				flash("success", "Le supervisor " + supervisorForm.get().name
+						+ " a été modifié");
+			} catch (Exception e) {
+				flash("error", "Le supervisor " + supervisorForm.get().name
+						+ " n'a pas été modifié");
+			}
+			return redirect(routes.Admin.supervisors(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result savesupervisor() {
+		if (Secured.hasWriteAccess()) {
+			Form<Supervisor> supervisorForm = form(Supervisor.class).bindFromRequest();
+			if (supervisorForm.hasErrors()) {
+				return badRequest(newSupervisorForm.render(supervisorForm));
+			}
+			try {
+				supervisorForm.get().save();
+				flash("success", "Supervisor " + supervisorForm.get().name
+						+ " a été créé");
+			} catch (Exception e) {
+				flash("error", "Supervisor " + supervisorForm.get().name
+						+ " non créé");
+			}
+			return redirect(routes.Admin.supervisors(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result newsupervisor() {
+		if (Secured.hasWriteAccess()) {
+			Form<Supervisor> supervisorForm = form(Supervisor.class);
+			return ok(newSupervisorForm.render(supervisorForm));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
+
+	public static Result deletesupervisor(Long id) {
+		if (Secured.hasWriteAccess()) {
+			try {
+				Supervisor.find.ref(id).delete();
+				flash("success", "Le supervisor a été supprimée");
+			} catch (Exception e) {
+				flash("error", "Le supervisor n'a pas été supprimée");
+			}
+			return redirect(routes.Admin.supervisors(0, "name", "asc"));
+		} else {
+			return unauthorized(errorPage.render(Messages.get("notice.warning")+"!",Messages.get("authentification.unauthorizedaccess")));
+		}
+	}
 }

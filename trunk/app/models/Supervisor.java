@@ -40,15 +40,16 @@ public class Supervisor extends Model {
     @Required
     @Basic(optional = false)
     public String host;
-    
+
     @Required
+    @Basic(optional = false)
+    public int port;
+    
     public Boolean authentification;
     
-    @Required
     @Constraints.MaxLength(25)
     public String login;
 
-    @Required
     @Constraints.MaxLength(25)
     public String password;
 
@@ -58,8 +59,8 @@ public class Supervisor extends Model {
     @Constraints.MaxLength(255)
     public String comment;
     
-    @ManyToMany(mappedBy = "supervisors")
-    public List<Group> groups;
+    @ManyToOne
+    public Group group;
 
     
     // -- Queries
@@ -76,7 +77,7 @@ public class Supervisor extends Model {
 	public static Page<Supervisor> page(int page, int pageSize, String sortBy, String order) {
 		Page<Supervisor> currentpage = null;
 		com.avaje.ebean.Query<Supervisor> query = Ebean.createQuery(Supervisor.class);
-		query.fetch("groups");
+		query.fetch("group");
 		query.orderBy(sortBy + " " + order );
 
 		currentpage = query.findPagingList(pageSize).getPage(page);
@@ -87,7 +88,7 @@ public class Supervisor extends Model {
 	public static List<Supervisor> findOrdered(String sortBy, String order) {
 		List<Supervisor> supervisors = null;
 		com.avaje.ebean.Query<Supervisor> query = Ebean.createQuery(Supervisor.class);
-		query.fetch("groups");
+		query.fetch("group");
 		query.orderBy(sortBy + " " + order );
 
 		supervisors = query.findList();

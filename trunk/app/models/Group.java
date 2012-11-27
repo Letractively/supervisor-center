@@ -43,7 +43,8 @@ public class Group extends Model {
     @Basic(optional = false)
     public String description;
     
-    @ManyToMany
+
+    @OneToMany(mappedBy = "group")
     public List<Supervisor> supervisors;
     
 

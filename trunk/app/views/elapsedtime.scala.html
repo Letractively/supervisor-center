@@ -4,15 +4,21 @@
   val interval = (new java.util.Date()).getTime() - dateinsert.getTime()
   
   if(interval >= (24*3600*1000)) {
-    "le "+dateinsert.format("dd/MM/yyyy à h'h'mm")
+    "le "+dateinsert.format("dd/MM/yyyy "+Messages("common.at")+" h'h'mm")
+  }
+  else if(interval >= (2*3600*1000)){
+    Messages("common.since")+" "+(interval/1000/3600)+" "+Messages("common.hours")
   }
   else if(interval >= (3600*1000)){
-    "il y a "+(interval/1000/3600)+" heure"
+    Messages("common.since")+" "+(interval/1000/3600)+" "+Messages("common.hour")
   }
+  else if(interval >= (2*60*1000)){
+    Messages("common.since")+" "+(interval/1000/60)+" "+Messages("common.minutes")
+  } 
   else if(interval >= (60*1000)){
-    "il y a "+(interval/1000/60)+" minutes"
+    Messages("common.since")+" "+(interval/1000/60)+" "+Messages("common.minute")
   } else {
-    "il y a "+(interval/1000)+" secondes"
+    Messages("common.since")+" "+(interval/1000)+" "+Messages("common.seconds")
   }
 }
 
