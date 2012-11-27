@@ -14,7 +14,7 @@ POST    /login                      controllers.Application.authenticate()
 GET     /logout                     controllers.Application.logout()
 
 ## Control
-GET     /control                    controllers.Control.index()
+GET     /control                    controllers.Control.processlist()
 
 ## Admin
 GET     /admin                      controllers.Admin.index()
@@ -33,3 +33,10 @@ POST    /admin/groups     		    controllers.Admin.savegroup()
 GET     /admin/groups/:id		    controllers.Admin.editgroup(id:Long)
 POST    /admin/groups/:id 		    controllers.Admin.updategroup(id:Long)
 GET     /admin/groups/:id/delete    controllers.Admin.deletegroup(id:Long)
+
+GET     /admin/supervisors     			controllers.Admin.supervisors(p:Int ?= -1, s ?= "", o ?= "asc")
+GET     /admin/supervisors/new     		controllers.Admin.newsupervisor()
+POST    /admin/supervisors     		    controllers.Admin.savesupervisor()
+GET     /admin/supervisors/:id		    controllers.Admin.editsupervisor(id:Long)
+POST    /admin/supervisors/:id 		    controllers.Admin.updatesupervisor(id:Long)
+GET     /admin/supervisors/:id/delete   controllers.Admin.deletesupervisor(id:Long)

@@ -1,0 +1,45 @@
+@(id: Long, supervisorForm: Form[Supervisor])
+
+@import helper._
+@import html5.tags.html._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("admin")("supervisors"){
+        	<div class="span10">
+				<div class="btn-toolbar">
+	        	    <div class="btn-group">
+					    <a class="btn btn-info" href="@routes.Admin.supervisors()" rel="tooltip" title="@Messages("admin.supervisors.links.list")"><i class="icon-list-alt"></i></a>
+				    </div>
+				</div>
+			    
+			    @form(routes.Admin.updatesupervisor(id), 'class -> "form-horizontal") {
+			        <legend>@Messages("admin.supervisors.edit.header")</legend>
+			        
+		            @text(supervisorForm("name"), '_label -> Messages("common.name"), '_showConstraints -> false)
+		            @text(supervisorForm("host"), '_label -> Messages("common.host"), '_showConstraints -> false)
+		            @number(supervisorForm("port"), '_label -> Messages("common.port"), '_showConstraints -> false, 'class -> "input-small")
+			        @checkbox(supervisorForm("authentification"), '_label ->  Messages("common.authentification"), '_showConstraints -> false)
+		            @text(supervisorForm("login"), '_label -> Messages("common.login"), '_showConstraints -> false)
+		            @text(supervisorForm("password"), '_label -> Messages("common.password"), '_showConstraints -> false)
+		            @text(supervisorForm("place"), '_label -> Messages("common.place"), '_showConstraints -> false)
+		            @select(
+		                supervisorForm("group.id"), 
+		                options(Group.options), 
+		                '_label -> Messages("common.group"),
+		                '_showConstraints -> false, 
+		                'class -> "input-medium"
+		            )
+		            @textarea(supervisorForm("comment"), '_label -> Messages("common.comment"), '_showConstraints -> false)
+			        
+		            <div class="control-group">
+						<div class="controls">
+				            <input type="submit" value="@Messages("admin.supervisors.edit.save")" class="btn btn-success"> @Messages("common.or") 
+				            <a href="@routes.Admin.supervisors()">@Messages("common.cancel")</a> 
+				        </div>
+				    </div>
+			        
+			    }
+			</div>
+    
+}

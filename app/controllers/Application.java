@@ -13,7 +13,7 @@ import views.html.*;
 public class Application extends Controller {
   
 	public static Result index() {
-		return redirect(routes.Control.index());
+		return redirect(routes.Control.processlist());
 	}
 
 	// -- Authentication
@@ -55,7 +55,7 @@ public class Application extends Controller {
 			session("level", appLevel);
 			session("version",Play.application().configuration().getString("app.version"));
 			flash("success", play.i18n.Messages.get("login.success"));
-			return redirect(routes.Application.index());
+			return redirect(routes.Control.processlist());
 		}
 	}
 
