@@ -1,0 +1,13 @@
+@(processName: String,supervisorName: String,supervisorId: Long,logs: String)
+
+@import utils._
+
+@main("control")(""){
+        	<div class="span12">
+        		<a href="@routes.Control.logs(supervisorId,processName)" class="btn">Refresh</a>
+				<br/><br/>
+				<h3>@processName logs @Messages("common.on") @supervisorName</h3>
+				<pre>
+				</pre>
+			</div>
+}

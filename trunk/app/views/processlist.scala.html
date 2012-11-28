@@ -4,6 +4,8 @@
 
 @main("control")(""){
         	<div class="span12">
+        		<a href="@routes.Control.processlist()" class="btn">Refresh</a> <a href="@routes.Control.restartall()" class="btn">Restart All</a> <a href="@routes.Control.stopall()" class="btn">Stop All</a>
+				<br/><br/>
 				<h3>@Messages("control.processlist.header")</h3>
 				@if(processl.size == 0) {
 			        
@@ -12,23 +14,29 @@
 			        </div>
 			        
 			    } else {
-				<table class="table table-striped table-bordered table-condensed">  
+				<table class="table table-striped table-bordered table-condensed" id="sortTableProcesslist">  
 			        <thead>  
 			          <tr>
 			          	<th>State</th>
+			          	<th>Group</th>
+			          	<th>Supervisor</th>
 			          	<th>Description</th>
 			          	<th>Name</th>
-			          	<th colspan="2">Action</th>
+			          	<th colspan="4">Action</th>
 			          </tr>  
 			        </thead>  
 			        <tbody>  
 					@for(process <- processl) {
 			          <tr>  
 			            <td><span class="label @if(process.getState == "RUNNING" ) {label-success} @if(process.getState == "FATAL" ) {label-important} @if(process.getState == "RESTARTING" ) {label-warning} @if(process.getState == "RUNNING" ) {label-warning} @if(process.getState == "STOPPED" ) {label-inverse}">@process.getState</span></td>  
-			            <td>pid @process.getProcessInfo.getPid, @if(process.getState == "RUNNING") {@Messages("common.started") @elapsedtime(process.getStartDate)}</td>  
-			            <td>@process.getName</td>
-			            <td></td>
-			            <td></td>
+			            <td><a href="#" data-content="@process.getSupervisor.group.description" data-original-title="@process.getSupervisor.group.name" rel="popover">@process.getSupervisor.group.name</a></td>
+			            <td><a href="#" data-content="@process.getSupervisor.host:@process.getSupervisor.port" data-original-title="@process.getSupervisor.name" rel="popover">@process.getSupervisor.name</a></td>
+			            <td>@if(process.getState == "RUNNING") {pid @process.getProcessInfo.getPid, @Messages("common.started") @elapsedtime(process.getStartDate)}@if(process.getState == "STOPPED") {@Messages("common.stopped") @elapsedtime(process.getStopDate)}</td>  
+			            <td><a href="#" data-content="name : @process.getProcessInfo.getName<br/>group : @process.getProcessInfo.getGroup<br/>start : @process.getProcessInfo.getStart<br/>stop : @process.getProcessInfo.getStop<br/>now :<br/>state : @process.getProcessInfo.getState<br/>statename : @process.getProcessInfo.getStatename<br/>spawnerr : @process.getProcessInfo.getSpawnerr<br/>exitstatus : @process.getProcessInfo.getExitstatus<br/>stdout_logfile : @process.getProcessInfo.getStdout_logfile<br/>stderr_logfile : @process.getProcessInfo.getStderr_logfile<br/>pid : @process.getProcessInfo.getPid" data-original-title="@process.getName" rel="popover">@process.getName</a></td>
+			            <td>@if(process.getState == "STOPPED") {<a href="@routes.Control.start(process.getSupervisor.id,process.getName)">Start</a>}@if(process.getState == "RUNNING") {<a href="#">Restart</a>}</td>
+			            <td>@if(process.getState == "RUNNING") {<a href="@routes.Control.stop(process.getSupervisor.id,process.getName)">Stop</a>}</td>
+			            <td><a href="@routes.Control.clear(process.getSupervisor.id,process.getName)">Clear Log</a></td>
+			            <td><a href="@routes.Control.logs(process.getSupervisor.id,process.getName)">Log</a></td>
 			          </tr>  
 					} 
 			        </tbody>  

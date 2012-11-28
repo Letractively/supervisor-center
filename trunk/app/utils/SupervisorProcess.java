@@ -2,6 +2,8 @@ package utils;
 
 import java.sql.Date;
 
+import play.Logger;
+
 import models.Supervisor;
 
 public class SupervisorProcess {
@@ -20,7 +22,7 @@ public class SupervisorProcess {
 		this.state =   processInfo.getStatename();
 		this.name = processInfo.getName();
 		int start = processInfo.getStart();
-		int stop = processInfo.getStart();
+		int stop = processInfo.getStop();
 		startDate = new Date((long) (start*1000L));
 		if (stop != 0) {
 			stopDate = new Date((long) (stop*1000L));
@@ -31,16 +33,8 @@ public class SupervisorProcess {
 		return processInfo;
 	}
 
-	public void setProcessInfo(utils.ProcessInfo processInfo) {
-		this.processInfo = processInfo;
-	}
-
 	public Supervisor getSupervisor() {
 		return supervisor;
-	}
-
-	public void setSupervisor(Supervisor supervisor) {
-		this.supervisor = supervisor;
 	}
 
 	public String getState() {
@@ -56,7 +50,7 @@ public class SupervisorProcess {
 	}
 
 	public Date getStopDate() {
-		return startDate;
+		return stopDate;
 	}
 	
 	

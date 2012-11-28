@@ -14,7 +14,14 @@ POST    /login                      controllers.Application.authenticate()
 GET     /logout                     controllers.Application.logout()
 
 ## Control
-GET     /control                    controllers.Control.processlist()
+GET     /control                    	controllers.Control.processlist()
+GET     /control/restartall        		controllers.Control.restartall()
+GET     /control/stopall        		controllers.Control.stopall()
+GET     /control/start/:supid/:name		controllers.Control.start(supid:Long,name:String)
+GET     /control/restart/:supid/:name	controllers.Control.restart(supid:Long,name:String)
+GET     /control/stop/:supid/:name		controllers.Control.stop(supid:Long,name:String)
+GET     /control/clear/:supid/:name		controllers.Control.clear(supid:Long,name:String)
+GET     /control/logs/:supid/:name		controllers.Control.logs(supid:Long,name:String)
 
 ## Admin
 GET     /admin                      controllers.Admin.index()

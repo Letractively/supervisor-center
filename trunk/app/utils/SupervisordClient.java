@@ -33,7 +33,7 @@ public class SupervisordClient {
         this.host = host;
         this.port = port;
         
-        connect();
+        setconfig();
     }
 
     public SupervisordClient(String host, int port, String user, String password) throws MalformedURLException {
@@ -42,11 +42,19 @@ public class SupervisordClient {
         this.user = user;
         this.password = password;
         
-        connect();
+        setconfig();
     }
     
-    private void connect() throws MalformedURLException {
+    private void setconfig() throws MalformedURLException {
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+        
+        // Setting timeouts for xmlrpc calls made using XmlRpcSunHttpTransportFactory, the default connection factory 
+        int xmlrpcConnTimeout = 1000; // Connection timeout
+        int xmlrpcReplyTimeOut = 6000; // Reply timeout
+
+        config.setConnectionTimeout(xmlrpcConnTimeout);
+		config.setReplyTimeout(xmlrpcReplyTimeOut);
+		
         if (user != null && password != null){
         config.setBasicUserName(user);
         config.setBasicPassword(password);

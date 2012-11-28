@@ -34,7 +34,7 @@ public class Group extends Model {
     public Long id;
 
     @Required
-    @Constraints.MaxLength(25)
+    @Constraints.MaxLength(50)
     @Basic(optional = false)
     public String name;
 

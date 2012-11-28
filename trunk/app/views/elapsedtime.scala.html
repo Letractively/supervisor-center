@@ -4,7 +4,7 @@
   val interval = (new java.util.Date()).getTime() - dateinsert.getTime()
   
   if(interval >= (24*3600*1000)) {
-    "le "+dateinsert.format("dd/MM/yyyy "+Messages("common.at")+" h'h'mm")
+    Messages("common.on")+" "+dateinsert.format("dd/MM/yyyy '"+Messages("common.at")+"' HH'h'mm")
   }
   else if(interval >= (2*3600*1000)){
     Messages("common.since")+" "+(interval/1000/3600)+" "+Messages("common.hours")
