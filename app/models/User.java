@@ -37,7 +37,7 @@ public class User extends Model {
 
 	@Required
 	@Basic(optional = false)
-	@Constraints.MaxLength(25)
+	@Constraints.MaxLength(50)
 	public String name;
 
 	@Required

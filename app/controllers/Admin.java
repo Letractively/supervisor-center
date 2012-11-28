@@ -347,7 +347,7 @@ public class Admin extends Controller {
 				if (sessionval != null) {
 					sortBy = sessionval;
 				} else {
-					sortBy = "ip";
+					sortBy = "name";
 				}
 			} else if (sortBy == ".") {
 				// efface la session pour mettre vide

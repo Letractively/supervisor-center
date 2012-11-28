@@ -47,13 +47,13 @@ public class Supervisor extends Model {
     
     public Boolean authentification;
     
-    @Constraints.MaxLength(25)
+    @Constraints.MaxLength(50)
     public String login;
 
-    @Constraints.MaxLength(25)
+    @Constraints.MaxLength(50)
     public String password;
 
-    @Constraints.MaxLength(25)
+    @Constraints.MaxLength(50)
     public String place;
     
     @Constraints.MaxLength(255)
