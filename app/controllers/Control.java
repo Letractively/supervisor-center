@@ -157,20 +157,20 @@ public class Control extends Controller {
 			} else {
 				supClient = new utils.SupervisordClient(host, port);
 			}
-			String result = supClient.readProcessStdoutLog(name, -200, 0);
+			String result = supClient.readProcessStdoutLog(name, 0, 100);
 			return ok(logs.render(name, supervisor.name, supid, result));
 		} catch (Exception ex) {
 			if (ex.getCause() instanceof ConnectException) {
-				flash("error", "\n<li><strong>" + supervisor.name
+				flash("error", "\n<strong>" + supervisor.name
 						+ "</strong> : " + ex.getCause() + " "
-						+ ex.getCause().getMessage() + "</li>");
+						+ ex.getCause().getMessage());
 			} else if (ex.getCause() instanceof SocketTimeoutException) {
-				flash("error", "\n<li><strong>" + supervisor.name
+				flash("error", "\n<strong>" + supervisor.name
 						+ "</strong> : " + ex.getCause() + " "
-						+ ex.getCause().getMessage() + "</li>");
+						+ ex.getCause().getMessage());
 			} else {
-				flash("error", "\n<li><strong>" + supervisor.name
-						+ "</strong> : " + ex + " " + ex.getMessage() + "</li>");
+				flash("error", "\n<strong>" + supervisor.name
+						+ "</strong> : " + ex + " " + ex.getMessage());
 			}
 			return redirect(routes.Control.processlist());
 		}

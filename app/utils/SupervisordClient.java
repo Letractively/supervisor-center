@@ -469,6 +469,7 @@ public class SupervisordClient {
 
 		config.setConnectionTimeout(xmlrpcConnTimeout);
 		config.setReplyTimeout(xmlrpcReplyTimeOut);
+		config.setEncoding("UTF-8");
 
 		if (user != null && password != null) {
 			config.setBasicUserName(user);
