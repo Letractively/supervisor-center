@@ -40,7 +40,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result deletegroup(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			try {
 				Group.find.ref(id).delete();
 				flash("success", "Le groupe a été supprimée");
@@ -61,7 +61,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result deletesupervisor(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			try {
 				Supervisor.find.ref(id).delete();
 				flash("success", "Le supervisor a été supprimée");
@@ -103,7 +103,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result editgroup(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Group> groupeForm = form(Group.class).fill(
 					Group.find.where().idEq(id).findUnique());
 			return ok(editGroupeForm.render(id, groupeForm));
@@ -147,7 +147,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result editsupervisor(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Supervisor> supervisorForm = form(Supervisor.class).fill(
 					Supervisor.find.where().idEq(id).findUnique());
 			return ok(editSupervisorForm.render(id, supervisorForm));
@@ -258,7 +258,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result newgroup() {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Group> groupeForm = form(Group.class);
 			return ok(newGroupeForm.render(groupeForm));
 		} else {
@@ -273,7 +273,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result newsupervisor() {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Supervisor> supervisorForm = form(Supervisor.class);
 			return ok(newSupervisorForm.render(supervisorForm));
 		} else {
@@ -303,7 +303,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result savegroup() {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Group> groupeForm = form(Group.class).bindFromRequest();
 			if (groupeForm.hasErrors()) {
 				return badRequest(newGroupeForm.render(groupeForm));
@@ -328,7 +328,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result savesupervisor() {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Supervisor> supervisorForm = form(Supervisor.class)
 					.bindFromRequest();
 			if (supervisorForm.hasErrors()) {
@@ -447,7 +447,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result updategroup(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Group> groupeForm = form(Group.class).bindFromRequest();
 			if (groupeForm.hasErrors()) {
 				return badRequest(editGroupeForm.render(id, groupeForm));
@@ -474,7 +474,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result updatesupervisor(Long id) {
-		if (Secured.hasWriteAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<Supervisor> supervisorForm = form(Supervisor.class)
 					.bindFromRequest();
 			if (supervisorForm.hasErrors()) {
@@ -502,7 +502,7 @@ public class Admin extends Controller {
 	 * @return Result
 	 */
 	public static Result updateuser(Long id) {
-		if (Secured.hasReadAccess()) {
+		if (Secured.hasAdminAccess()) {
 			Form<User> userForm = form(User.class).bindFromRequest();
 			if (userForm.hasErrors()) {
 				return badRequest(editUserForm.render(id, userForm));

@@ -1,7 +1,7 @@
 @(currentside: String)
 
         <div class="span2">
-          @if((session.get("level") == "Administration") || (session.get("level") == "ADMIN")) {
+          @if(session.get("level") == "ADMIN") {
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               	<li class="nav-header">@Messages("nav.side.admin.header")</li>
