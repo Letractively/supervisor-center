@@ -245,7 +245,7 @@ public class Admin extends Controller {
 	 */
 	public static play.mvc.Result index() {
 		if (Secured.hasReadAccess()) {
-			return redirect("/admin/groups");
+			return redirect("/admin/users");
 		} else {
 			return unauthorized(errorPage.render(Messages.get("notice.warning")
 					+ "!", Messages.get("authentification.unauthorizedaccess")));
